@@ -71,33 +71,42 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ── Intersection Observer – Fade-in on scroll ─
-const observerOptions = {
-  threshold: 0.12,
-  rootMargin: '0px 0px -50px 0px'
-};
+// El delay se asigna POR SECCIÓN (no global), así el índice
+// reinicia en cada bloque y nunca se acumula.
+const STAGGER   = 0.07;   // segundos entre cards de un mismo grupo
+const MAX_DELAY = 0.28;   // tope máximo de delay
+const DURATION  = 0.42;   // duración de la transición
 
 const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      fadeObserver.unobserve(entry.target);
+      const el    = entry.target;
+      const delay = Math.min(parseFloat(el.dataset.staggerDelay || 0), MAX_DELAY);
+      el.style.transitionDelay = `${delay}s`;
+      el.classList.add('visible');
+      fadeObserver.unobserve(el);
     }
   });
-}, observerOptions);
-
-// Add fade-in class to target elements
-const animatedEls = document.querySelectorAll(
-  '.service-card, .step-card, .testimonial-card, .stat-item, .about-img, .value-item'
-);
-animatedEls.forEach((el, i) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(28px)';
-  el.style.transition = `opacity 0.55s ease ${i * 0.07}s, transform 0.55s ease ${i * 0.07}s`;
-  el.classList.add('fade-target');
-  fadeObserver.observe(el);
+}, {
+  threshold:  0.08,
+  rootMargin: '0px 0px -20px 0px'   // dispara un poco antes del borde
 });
 
-// visible state
+// Preparar elementos agrupados por su sección padre
+const SELECTOR = '.service-card, .step-card, .testimonial-card, .stat-item, .about-img, .value-item';
+
+document.querySelectorAll('section, footer').forEach(section => {
+  section.querySelectorAll(SELECTOR).forEach((el, localIndex) => {
+    el.dataset.staggerDelay = (localIndex * STAGGER).toFixed(2);
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = `opacity ${DURATION}s ease, transform ${DURATION}s ease`;
+    el.classList.add('fade-target');
+    fadeObserver.observe(el);
+  });
+});
+
+// Estado visible
 const style = document.createElement('style');
 style.textContent = `.fade-target.visible { opacity: 1 !important; transform: translateY(0) !important; }`;
 document.head.appendChild(style);
