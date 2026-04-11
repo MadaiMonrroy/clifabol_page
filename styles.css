@@ -313,12 +313,12 @@ ul { list-style: none; }
    ============================================================ */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: auto;
   background: linear-gradient(145deg, var(--primary-dark) 0%, var(--primary) 45%, #0878c2 75%, var(--secondary) 100%);
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 120px 0 110px;
+  padding: 100px 0 60px;
 }
 
 .hero-bg-overlay {
@@ -403,10 +403,10 @@ ul { list-style: none; }
 
 .hero-text h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-size: clamp(1.875rem, 3.2vw, 2.6rem);
   font-weight: 700;
   color: var(--white);
-  line-height: 1.18;
+  line-height: 1.22;
   margin-bottom: 24px;
 }
 .hero-text h1 em { font-style: normal; color: #a8dcff; }
@@ -597,6 +597,7 @@ ul { list-style: none; }
   bottom: 0; left: 0; right: 0;
   height: 80px;
   line-height: 0;
+  z-index: 2;
 }
 .hero-wave svg { width: 100%; height: 100%; }
 
@@ -637,7 +638,7 @@ ul { list-style: none; }
   text-align: center;
 }
 .stat-number {
-  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-size: clamp(2.75rem, 5vw, 4.25rem);
   font-weight: 800;
   color: var(--primary);
   line-height: 1;
@@ -1253,7 +1254,7 @@ ul { list-style: none; }
 @media (max-width: 900px) {
   .hero-content { grid-template-columns: 1fr; gap: 48px; }
   .hero-image-wrap { display: none; }
-  .hero { min-height: auto; padding: 120px 0 100px; }
+  .hero { min-height: auto; padding: 90px 0 56px; }
   .hero-text h1 { font-size: 2.5rem; }
 
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -1297,9 +1298,9 @@ ul { list-style: none; }
   .stats-grid { flex-direction: column; }
   .stat-divider { width: 60px; height: 1px; }
   .stat-item { padding: 16px 24px; }
-
-  .hero-actions { flex-direction: column; }
-  .btn-hero-primary, .btn-hero-outline { text-align: center; justify-content: center; }
+ .btn-hero-primary, .btn-hero-outline { text-align: center; justify-content: center; }
+  .hero-actions { flex-wrap: nowrap; gap: 10px; }
+  .btn-hero-primary, .btn-hero-outline { font-size: .9rem; padding: 13px 20px; }
 }
 
 @media (max-width: 480px) {
