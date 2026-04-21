@@ -591,33 +591,30 @@ ul { list-style: none; }
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-14px); }
 }
-
 .hero-wave {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
+  bottom: -1px;
+  left: 0;
+  right: 0;
   height: 80px;
   line-height: 0;
-  z-index: 2;
+  z-index: 5;
 }
-.hero-wave svg { width: 100%; height: 100%; }
+
+.hero-wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
 /* ============================================================
    STATS BAR
    ============================================================ */
 .stats-bar {
-  background: var(--white);
-  padding: 56px 0;
-  border-bottom: 1px solid var(--gray-200);
-  position: relative;
+  border-top: none;
 }
 .stats-bar::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
-  background-size: 200% 100%;
-  animation: gradientShift 4s linear infinite;
+ display: none;
 }
 @keyframes gradientShift {
   0%   { background-position: 0% 50%; }
